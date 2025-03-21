@@ -1,7 +1,7 @@
 pipeline {
   agent any
   stages {
-    stage("检出代码") {
+    stage('检出代码') {
       steps {
         checkout([
           $class: 'GitSCM',
@@ -15,7 +15,6 @@ pipeline {
     }
     stage('docker login') {
       steps {
-        // 使用环境变量中的密码进行docker login
         sh "echo \"${env.DOCKER_PASSWORD}\" | docker login -u wangrui027 --password-stdin"
       }
     }
@@ -38,9 +37,13 @@ pipeline {
   post {
     failure {
       echo 'Build and deployment failed!'
+
     }
+
     success {
       echo 'Build and deployment succeeded!'
+
     }
+
   }
 }
